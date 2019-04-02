@@ -5,38 +5,45 @@ import { SSL_OP_SINGLE_DH_USE } from "constants";
 let video;
 let classifier;
 let song;
-function setup(){
-  
-    createCanvas(500,500);
-   
+let img;
+let check;
+
+
+function setup() {
+    song = createAudio('5OnitEdited.mp3');
+    img = loadImage('assets/five.jpg');
     video = createCapture(VIDEO);
     classifier = ml5.imageClassifier('MobileNet', video, modelReady);
-    // // song = createAudio()
-    // if (results == "comic book"){
-    //     console.log('I got 5 on it!');
-    //     // song.play();
-    //     // image.display(5 dollar bill)
 
-    // }
-}
     function modelReady() {
         console.log('Our model is ready baby!');
         classifier.predict(gotResult);
 
 
-        function gotResult(err, results){
-            if (results){
+        function gotResult(err, results) {
+            if (results) {
                 console.log('results:', results);
                 select('#result').html(results[0].className);
                 select('#probability').html(results[0].probability);
                 classifier.predict(gotResult);
             }
+
+            if (results[0].className == "comic book") {
+                console.log('I got 5 on it!');
+                song.play();
+                check = 1;
+
+            }
         }
-        
     }
 
+}
+
+function draw(){
+    if (check == 1){
+        image(img, 0, 0);
+    }
+
+}
 
 
-function draw() {
-        background(60, 106, 227);
-    }      
