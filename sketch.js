@@ -46,7 +46,7 @@ function setup() {
 }
 
 function draw(){
-    background (220);
+    background (51,97,50);
     if (check == 1) {
         background(img);
     }
