@@ -46,7 +46,8 @@ function classifyMe() {
                     ///use p5 speech to say, "O6!!!  You, you're an Alpha man!"
                     //  myVoice.speak(`O 6 , You are an ${result.label} man!`);
                     //delay for 1-2 secs, then commence playing song 
-                    song1.play();
+                    
+                    song1.play(); //Use settimeout or set interval method
                     song2.pause();
                     song3.pause();
                 }
@@ -103,7 +104,7 @@ function draw() {
     image(video, 0, 0);
     // playSong();
     if (!ready && knn.getNumLabels() > 0) {
-        classifyMe();
+        classifyMe(); //comment this out
         ready = true;
     }
 }
