@@ -1,28 +1,11 @@
 
-{/* 
-<script type="text/javascript">
-    const checkpoint = 'https://storage.googleapis.com/tm-pro-a6966.appspot.com/2019-04-16-11-46-18/model.json';
-
-    let model;
-    const maxPredictions = 4;
-    async function load() {
-        model = await tm.mobilenet.load(checkpoint);
-    }
-
-    async function init() {
-        await load();
-        const prediction = await model.predict(image, maxPredictions);
-    }
-
-    init();
-</script> */}
 
 
 
 
 
 
-const checkpoint = 'https://storage.googleapis.com/tm-pro-a6966.appspot.com/Yining-image-example/model.json';
+// const checkpoint = ''; Fill this with the right link when appropriate 
 const maxPredictions = 4;
 
 let model;
@@ -47,6 +30,8 @@ async function setup() {
 
   //create a canvas 
   createCanvas(500, 500);
+  
+  
 }
 
 
@@ -56,14 +41,19 @@ async function predictVideo(image) {
 
   // Show the result
    const res = select('#res'); // select <span id="res">
-   res.html(prediction[0].className);
+  res.html(prediction[0].className)
+ 
+  water = prediction[0].className;
+  console.log(water);
 
-  if (res.html(prediction[0].className) == 1){
+  if ((water == 1) && (prediction[0].probability > .98)){
     console.log("hi");
     waterViz();
-} else{
-   text('Where is the Food Brooo?', 120, 75)
+} else {
+  //  text('Where is the Food Brooo?', 120, 75);
+  clear();
 }
+   
 
   // Show the probability
   const prob = select('#prob'); // select <span id="prob">
