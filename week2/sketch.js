@@ -1,9 +1,5 @@
 //Machine Learning For Web Assignment 2
 
-
-
-
-//
 let video;
 const knnClassifier = ml5.KNNClassifier();
 const featureExtractor= ml5.imageClassifier('MobileNet', gotModel)
