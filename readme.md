@@ -2,7 +2,7 @@
 
 ## Project Brief
 
-For my final project in Machine Learning for Web, I created an interactive p5.sketch that "poof'd" all of your negatives worries out your life. 
+For my final project in Machine Learning for Web, I created an interactive p5.sketch that "poof'd" all of your negatives worries out your life using Machine Learning Model from Google. Find out how below!
 
 
 ## The WHY
