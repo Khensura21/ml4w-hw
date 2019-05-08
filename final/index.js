@@ -1,28 +1,28 @@
 
-
+//Load Teachable machine audio models
 const modelJson = 'https://storage.googleapis.com/tm-speech-commands/Thanoz/model.json';
-const metadataJson = 'https://storage.googleapis.com/tm-speech-commands/Thanoz/metadata.json';
+const metadataJson = 'https://storage.googleapis.com/tm-speech-commands/Thanoz/metadata.json'
 
-const colors = ["AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "DarkOrange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "RebeccaPurple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"];
-let colorSelection;
+//ML method that recognizes which classes are which
 const recognizer = speechCommands.create(
     'BROWSER_FFT',
     undefined,
     modelJson,
     metadataJson
 );
-
+//////Global variables//////////////
+//Words array that stores user input
 let words = [];
+//variable that stores probability the model heard a finger snap
+let snap; 
+///UI variables
+let button, button2, greeting, input
 
-let color;
+// const prob0 = document.getElementById('prob0'); // select <span id="prob0">
+// const prob1 = document.getElementById('prob1'); // select <span id="prob1">
 
-
-const prob0 = document.getElementById('prob0'); // select <span id="prob0">
-const prob1 = document.getElementById('prob1'); // select <span id="prob1">
-
-
-// loadMyModel();
-
+//Code taken from Yining's Audio CLassifier Example
+loadMyModel();
 async function loadMyModel() {
     // Make sure that the underlying model and metadata are loaded via HTTPS
     // requests.
@@ -55,120 +55,121 @@ async function loadMyModel() {
     // setTimeout(() => recognizer.stopListening(), 10e3);
 }
 
+//shows the result from the recognizer model
 function showResult(result) {
     console.log('result: ', result);
     console.log('result.scores[0]', result.scores[0])
     console.log('result.scores[1]', result.scores[1])
-    // Show the probability for class 0
-    prob0.innerHTML = result.scores[0];
 
-    // Show the probability for class 1
-    prob1.innerHTML = result.scores[1];
-    color = result.scores[0];
+    snap = result.scores[0];
+    if (snap > 0.95) {
+        removeMe();
 
-   
+    }
+
 }
-let button, button2, greeting, input
+
 function setup() {
-    createCanvas(750,500);
-    background(220);
-    colorSelection = colors[floor(random(colors.length))];
+    createCanvas(750, 500);
+    background(0);
 
     //Code taken from example: https://p5js.org/examples/dom-input-and-button.html
-   
+
+    greeting = createElement('h2', 'What Are Your Worries?');
+    greeting.position(360, 640);
+
     input = createInput();
-    input.position(20, 165);
-  
-   greeting = createElement('h2', 'What Are Your Worries?');
-    greeting.position(20, 115);
+    input.position(420, 710);
+    input.size(150, 25);
 
-   button = createButton('submit');
-    button.position(input.x + input.width, 165);
-    button.mousePressed(worry);
+    //submit button
+    button = createButton('submit');
+    button.position(660, 700);
+    button.mousePressed(addWordToCanvas);
+    button.style('border-radius', '40px')
+    button.style('font-size', ' 25px');
+    button.style('background-color', '#ff3300')
+    button.style('font-family', 'Helvetica')
+    button.style('border', 'none')
+    button.style('cursor', 'pointer')
+    button.size(200, 50)
 
-   button2 = createButton('remove');
-   button2.position(input.x + input.width, 195);
-   button2.mousePressed(() => {
-    removeMe();
-   });
+    ///Done button
+    button2 = createButton('done');
+    button2.position(900, 700);
+    button2.style('border-radius', '40px')
+    button2.style('font-size', ' 25px');
+    button2.style('background-color', '#751aff')
+    button2.style('font-family', 'Helvetica')
+    button2.style('border', 'none')
+    button2.style('cursor', 'pointer')
+    button2.size(200, 50)
+    button2.mousePressed(() => {
+        window.alert("Now snap to make them go POOF!");
+    });
 }
 
-  //Code taken from example: https://p5js.org/examples/dom-input-and-button.html
-function worry() {
+
+//Code taken from example: https://p5js.org/examples/dom-input-and-button.html
+//Adds Users'input to the canvas
+
+function addWordToCanvas() {
     const name = input.value();
     input.value('');
-
     words.push(name);
     console.log(words);
-  
-    for (let i = 0; i < 200; i++) {
-      push();
-      fill(random(255), 255, 255);
-      translate(random(width), random(height));
-      rotate(random(2 * PI));
-      text(words[words.length-1], 0, 0);
-      pop();
-    }
-  }
 
-//   function remove(){
-//       words.pop()
-//       console.log(words)
-
-
-//   }
-function draw() {
-   
-    // background(220);
-    // changeBG();
-    // removeMe();
-   
-
-
-}
-
-
-function changeBG(){
-  
-    if (color > .90) {
-        background(colorSelection);
-    }
-
-}
-
-function removeMe(){
-    let word = shuffle(words);
-    words = word.slice(0, parseInt(words.length / 2));
-    console.log('words: ', words)
-
-    background(220);
-    
-    words.forEach(word => {
-        drawOneWord(word);
-    })
-
-//    for (let i = 0; i < words.length; i++){
-//         fill('white');
-//         text(words[i], 250, 100 *i +100)
-//     }
-//     if (color > .90) {
-//         words.pop();
-//     }
-
-    
-}
-
-function drawOneWord(word) {
     for (let i = 0; i < 200; i++) {
         push();
         fill(random(255), 255, 255);
         translate(random(width), random(height));
         rotate(random(2 * PI));
+        textSize(15);
+        text(words[words.length - 1], 0, 0);
+        pop();
+    }
+    
+
+}
+
+//function removes half of the words from the canvas triggered by a finger snap
+function removeMe() {
+
+    let word = shuffle(words);
+    words = word.slice(0, parseInt(words.length / 2));
+    console.log('words: ', words)
+    background(0);
+
+    words.forEach(word => {
+        remainingWord(word);
+    })
+    if (word.length == 0) {
+        background(0);
+        let p = 'No matter how real they feel or intense they may become, they all just illusions'
+        let q = 'They will INEVITABLY, fade away..'
+        fill('#00e600');
+        textSize(20);
+        text(p, 25, 200)
+        text(q, 225, 250)
+
+    }
+
+}
+
+//redraws the remaining words in the 'words' array 
+function remainingWord(word) {
+    for (let i = 0; i < 200; i++) {
+        push();
+        fill(random(255), 255, 255);
+        translate(random(width), random(height));
+        rotate(random(2 * PI));
+        textSize(15);
         text(word, 0, 0);
         pop();
     }
 }
 
+//shuffles words in the word array
 function shuffle(a) {
     var j, x, i;
     for (i = a.length - 1; i > 0; i--) {
@@ -180,4 +181,4 @@ function shuffle(a) {
     return a;
 }
 
-   
+

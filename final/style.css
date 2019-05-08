@@ -1,0 +1,18 @@
+ body {
+    margin: 0;
+    padding: 0;
+    background: rgb(254,194,63);
+    font-family: helvetica;
+    text-align: center;
+  }
+
+
+.brief {
+    font-family: helvetica;
+    margin: 10px;
+    padding: auto;
+  
+}
+.projectTitle{
+    margin: 20px;
+}
