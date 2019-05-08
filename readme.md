@@ -7,7 +7,9 @@ For my final project in Machine Learning for Web, I created an interactive p5.sk
 
 ## The WHY
 
-picture here 
+<img width="1299" alt="Screen Shot 2019-05-08 at 1 46 15 AM" src="https://user-images.githubusercontent.com/43118650/57353112-73b5a400-7135-11e9-8303-88617244553a.png">
+
+
 What really inspired me to create Inevitable were these  three distinctive things:
 - A conversation with my mother 
 - Marvel's Avenger: Endgames
@@ -45,12 +47,13 @@ Initially, I trained the ML algorithim to distinguish a finger snap from no nois
 Next I used that algorithim to test out the functionality part of my sketch which was to trigger something if it heard a snap. In this example, the background color of the canvas changed everytime I snapped my fingers.
 
 
-picture 
+<img width="610" alt="Screen Shot 2019-05-08 at 2 01 30 AM" src="https://user-images.githubusercontent.com/43118650/57353162-9778ea00-7135-11e9-9564-d052b75caf8b.png">
 
 
 ### Step 3
 
 After getting the functionality to work with ML to work, I then simulated the idea of removing elements that I had drawn on the canvas. Building on top of a p5 example, I created two buttons with callback functions. The "submit" button allowed me to draw text to the sketch from a word array. The remove button, when pressed, subsequentl deleted each word randomly. 
+
 
 
 <img width="1000" alt="Screen Shot 2019-05-06 at 7 33 00 PM" src="https://user-images.githubusercontent.com/43118650/57349404-f5063a00-7127-11e9-9ae2-c100daf23a29.png">
