@@ -82,8 +82,8 @@ While I am happy with the initial results, I look forward in my future iteration
 ## References and Links
 1. Yining Shi
 2. https://p5js.org/examples/dom-input-and-button.html
-3.[p5.js Example](https://p5js.org/examples/dom-input-and-button.html)
-4.[Colorway Inspiration](https://giphy.com/search/thanos-stickers)
+3. [p5.js Example](https://p5js.org/examples/dom-input-and-button.html)
+4. [Colorway Inspiration](https://giphy.com/search/thanos-stickers)
 
 
 
