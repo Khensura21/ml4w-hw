@@ -27,7 +27,7 @@ This piece was created to act as a reminder to keep the minds healthy and hopefu
 
 ## The HOW
 
-Now I'll break down how it was put together. The technologies used in this project were:
+Now I'll break down how it was put together. The main technologies used in this project were only:
 
 1. P5.js
 2. Google's Teachable Machine Audio Version (tensorflow.js)
